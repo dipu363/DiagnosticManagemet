@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prescriptions_subreport1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e7beaa6f-1d6c-4012-8d62-d05afe7bb086">
+	<property name="ireport.zoom" value="1.7715610000000017"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="patientid" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT medecinelist.listid,
+       medecinegroup.groupname,
+       medecinetype.typename,
+       medecinelist.medecinename,
+       prescriptiondrug.dose,
+       prescriptiondrug.doseschedule,
+       prescriptiondrug.doseadvice,
+       patient.pid
+FROM (((diagnostic.patient patient
+        INNER JOIN diagnostic.prescriptiondrug prescriptiondrug
+           ON (patient.pid = prescriptiondrug.pid))
+       INNER JOIN diagnostic.medecinegroup medecinegroup
+          ON (medecinegroup.groupid = prescriptiondrug.groupid))
+      INNER JOIN diagnostic.medecinelist medecinelist
+         ON (medecinelist.listid = prescriptiondrug.listid))
+     INNER JOIN diagnostic.medecinetype medecinetype
+        ON (medecinetype.typeid = prescriptiondrug.typeid)
+where patient.pid=$P{patientid}]]>
+	</queryString>
+	<field name="listid" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="groupname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="typename" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="medecinename" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dose" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="doseschedule" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="doseadvice" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pid" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="18">
+			<staticText>
+				<reportElement x="163" y="4" width="67" height="14" uuid="401a4a6f-d32f-4bb7-a0fb-85e4a557fe58"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Medicine Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="237" y="4" width="31" height="14" uuid="532d5714-4a14-43b3-a1b8-b8aae433a112"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dose]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="4" width="67" height="14" uuid="33af2790-2003-4d2f-9143-5b4d88c869ec"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Medicine Group]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="4" width="58" height="14" uuid="787300cc-56e6-4545-8a3e-3791e75d3fc7"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dose Advice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="272" y="4" width="72" height="14" uuid="18976034-a92c-4355-9344-08e7a235392f"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dose Schedule]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="4" width="60" height="14" uuid="acfb43c2-b176-4cfe-8bf1-7f8d8174d8e7"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Medicine Type]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="20" y="4" width="60" height="14" uuid="bdc6d378-cc60-4865-b05b-91979ff34b33"/>
+				<textFieldExpression><![CDATA[$F{typename}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="4" width="31" height="14" uuid="5ae86ba9-41ad-4489-8194-ff8465fe133c"/>
+				<textFieldExpression><![CDATA[$F{dose}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="275" y="4" width="145" height="14" uuid="7c6c7dce-b187-49b7-82c9-c6a99467ec26"/>
+				<textFieldExpression><![CDATA[$F{doseschedule}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="4" width="67" height="14" uuid="f1f9321c-3638-417d-81f5-70918f44d7a4"/>
+				<textFieldExpression><![CDATA[$F{groupname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="4" width="110" height="14" uuid="ec952c68-eeb7-4e92-af41-9f020ee11b91"/>
+				<textFieldExpression><![CDATA[$F{doseadvice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="4" width="67" height="14" uuid="1ffdc425-2c0d-4414-8db1-63779b85f226"/>
+				<textFieldExpression><![CDATA[$F{medecinename}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

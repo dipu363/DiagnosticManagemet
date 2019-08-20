@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c8e742c0-ea4e-4078-ad65-56e0060eb89b">
+	<property name="template.type" value="columnar"/>
+	<property name="ireport.zoom" value="2.5937424601000023"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="384"/>
+	<style name="Title" forecolor="#000000" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="startdate" class="java.lang.String"/>
+	<parameter name="enddate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT patient.fname,
+       patient.emailid,
+       patient.mobile,
+       patient.address,
+       addmission.addmissiondate,
+       appointments.appointdate,
+       paymentinfo.appointfees,
+       paymentinfo.admissionfees,
+       paymentinfo.testcost,
+       paymentinfo.total,
+       paymentinfo.paymentdate
+FROM ((diagnostic.patient patient
+       INNER JOIN diagnostic.paymentinfo paymentinfo
+          ON (patient.pid = paymentinfo.pid))
+      INNER JOIN diagnostic.appointments appointments
+         ON (appointments.appointid = paymentinfo.appointid))
+     INNER JOIN diagnostic.addmission addmission
+        ON (addmission.addid = paymentinfo.addid)
+where paymentinfo.paymentdate between $P{startdate} and $P{enddate}]]>
+	</queryString>
+	<field name="fname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="emailid" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mobile" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="addmissiondate" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="appointdate" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="appointfees" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="admissionfees" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="testcost" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="paymentdate" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" mode="Opaque" x="4" y="10" width="551" height="93" forecolor="#F0F0F0" backcolor="#00CCCC" uuid="4c07fd53-b8a1-4936-b7e0-d2b618789210"/>
+				<textElement textAlignment="Center">
+					<font size="80" isBold="false"/>
+				</textElement>
+				<text><![CDATA[S.R Clinic]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" mode="Opaque" x="4" y="103" width="549" height="29" forecolor="#F0F0F0" backcolor="#0066FF" uuid="269520c0-5679-4a81-84fd-2e10ef1f14c5"/>
+				<textElement textAlignment="Center">
+					<font size="22" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Payment Information]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="243" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="4" y="0" width="207" height="20" forecolor="#000000" backcolor="#9999FF" uuid="a451847d-c02c-417d-a669-e71ab3c0ab51"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" mode="Opaque" x="215" y="0" width="338" height="18" forecolor="#F0F0F0" backcolor="#006666" uuid="bba4df8d-fd08-43ed-a7a9-861ee608172f"/>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="4" y="20" width="207" height="20" forecolor="#000000" backcolor="#9999FF" uuid="0b662562-f6e6-4b67-b30c-a3cb969ca727"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" mode="Opaque" x="215" y="20" width="338" height="18" forecolor="#F0F0F0" backcolor="#006666" uuid="33ce6ec1-635c-484e-9654-079978a2dcfe"/>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{emailid}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="4" y="40" width="207" height="20" forecolor="#000000" backcolor="#9999FF" uuid="d609ddd2-ab60-4daa-97bd-bf045025051f"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Contact No]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" mode="Opaque" x="215" y="40" width="338" height="18" forecolor="#F0F0F0" backcolor="#006666" uuid="2b229bfe-9ded-4a77-af36-ea7277c6f94d"/>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mobile}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="4" y="60" width="207" height="20" forecolor="#000000" backcolor="#9999FF" uuid="e76d3146-ae2a-4e78-801b-1333ff624a76"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" mode="Opaque" x="215" y="60" width="338" height="18" forecolor="#F0F0F0" backcolor="#006666" uuid="f1012f9a-ce90-4ac4-8c6f-5dee4eb3f87b"/>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="4" y="80" width="207" height="20" forecolor="#000000" backcolor="#9999FF" uuid="d3016676-111a-4370-b1b2-cba3c9bc5be0"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Admission Date]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="yyyy/MM/dd" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" mode="Opaque" x="215" y="80" width="338" height="18" forecolor="#F0F0F0" backcolor="#006666" uuid="3305338b-0702-4c1d-bdd3-b2ddb91da883"/>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{addmissiondate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="4" y="100" width="207" height="20" forecolor="#000000" backcolor="#9999FF" uuid="fa0cf3ba-ea8b-4352-bd3c-217d0b65d01c"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Appointment Date]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="yyyy/MM/dd" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" mode="Opaque" x="215" y="100" width="338" height="18" forecolor="#F0F0F0" backcolor="#006666" uuid="1672c6dd-d185-4ac9-87ea-3b4bc34865ca"/>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{appointdate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="4" y="120" width="207" height="20" forecolor="#000000" backcolor="#9999FF" uuid="ce18bb29-de04-4a55-ae32-66f67a58acb3"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Appointment Fees]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" mode="Opaque" x="215" y="120" width="338" height="18" forecolor="#F0F0F0" backcolor="#006666" uuid="afd7c972-2377-4ad6-8099-502cfbd649cb"/>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{appointfees}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="4" y="140" width="207" height="20" forecolor="#000000" backcolor="#9999FF" uuid="d88fc956-229e-40d5-bdd2-8e3d6a1db946"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Admission Fess]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" mode="Opaque" x="215" y="140" width="338" height="18" forecolor="#F0F0F0" backcolor="#006666" uuid="32e36915-2ce2-46d8-9a70-ef2de978ceca"/>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{admissionfees}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="4" y="160" width="207" height="20" forecolor="#000000" backcolor="#9999FF" uuid="ccd317c0-74a2-48dd-aaed-1fdfae5cb643"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Test Cost]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" mode="Opaque" x="215" y="160" width="338" height="18" forecolor="#F0F0F0" backcolor="#006666" uuid="b326884d-aef6-4693-b066-9ca25c306c92"/>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{testcost}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="4" y="180" width="207" height="20" forecolor="#000000" backcolor="#9999FF" uuid="560ff053-232b-42d9-ad9d-9fbf5799628d"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Ttotal]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" mode="Opaque" x="215" y="180" width="338" height="18" forecolor="#F0F0F0" backcolor="#006666" uuid="28bc5e23-efa4-4854-b9dc-80d384c710d4"/>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" mode="Opaque" x="4" y="200" width="207" height="20" forecolor="#000000" backcolor="#9999FF" uuid="d5f14a0b-4473-47d2-9322-53cc63b67c66"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Payment Date]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="yyyy/MM/dd" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" mode="Opaque" x="215" y="200" width="338" height="18" forecolor="#F0F0F0" backcolor="#006666" uuid="d3eb1582-471a-4945-b021-bb948366c0f0"/>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{paymentdate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="f561a477-5a19-42cf-a7d6-0ed2702933e2"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="13" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="2" y="0" width="555" height="13" forecolor="#D0B48E" backcolor="#9DB1B8" uuid="badd8a68-d719-4d13-84f4-a058a29552fb"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="513" y="-1" width="40" height="13" forecolor="#FFFFFF" uuid="38f53801-fca3-4fca-97db-762acb23502a"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="-1" width="80" height="13" forecolor="#FFFFFF" uuid="7fa15ff5-116c-440c-ba8b-932369098817"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="0" width="197" height="13" forecolor="#FFFFFF" uuid="664b37df-5fd3-4f06-bc39-2c60dba69e41"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="testreport_subreport1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="db5c99ec-fbdf-42e7-8689-ec099c45f88b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="tprespid" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT patient.fname as pname,
+       patient.pid,
+       patient.gender,
+       patient.bloodgroup,
+       patient.age,
+       testtype.typename,
+       test.testname,
+       testprescription.amount,
+       testreport.testdate,
+       testreport.reportdate,
+       testreport.report,
+       testprescription.presid
+FROM (((diagnostic.testprescription testprescription
+        INNER JOIN diagnostic.testreport testreport
+           ON (testprescription.presid = testreport.presid))
+       INNER JOIN diagnostic.testtype testtype
+          ON (testtype.typeid = testprescription.typeid))
+      INNER JOIN diagnostic.patient patient
+         ON (patient.pid = testprescription.pid))
+     INNER JOIN diagnostic.test test ON (test.testid = testreport.testid)
+where patient.pid=$P{tprespid}]]>
+	</queryString>
+	<field name="pname" class="java.lang.String"/>
+	<field name="pid" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="bloodgroup" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="age" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="typename" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="testname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="amount" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="testdate" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="reportdate" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="report" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="presid" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="135" splitType="Stretch">
+			<staticText>
+				<reportElement x="148" y="12" width="100" height="20" uuid="d3bf8f41-efca-4824-8740-5b972cb2f947"/>
+				<text><![CDATA[Test Name :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="248" y="12" width="100" height="20" uuid="9e939205-672d-4bdc-9ada-17707c6ed06b"/>
+				<textFieldExpression><![CDATA[$F{testname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="148" y="44" width="100" height="20" uuid="77b5c459-3f34-414a-94ab-6b7504a8bb4e"/>
+				<text><![CDATA[Test Type]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="248" y="44" width="100" height="20" uuid="72dc0990-2711-4dd4-88df-e70c429c4086"/>
+				<textFieldExpression><![CDATA[$F{typename}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="148" y="73" width="100" height="20" uuid="cc497866-2c11-4293-97ab-935fc411fa26"/>
+				<text><![CDATA[Test Report]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="248" y="73" width="100" height="20" uuid="cabf2134-445e-43b7-96a9-b4c7ec48e5ee"/>
+				<textFieldExpression><![CDATA[$F{report}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="23" y="128" width="512" height="1" uuid="3348d9e2-6657-44a8-ad9c-5991cba04587"/>
+			</line>
+			<staticText>
+				<reportElement x="148" y="103" width="100" height="20" uuid="84cab10b-64dc-4d44-9865-3a26b1dc4fa2"/>
+				<text><![CDATA[Test Cost]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="248" y="103" width="100" height="20" uuid="098db09b-f213-48b2-adc3-e6c1f7c044d6"/>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

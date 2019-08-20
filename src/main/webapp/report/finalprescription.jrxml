@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="252da3de-ab1a-4fd6-a609-4f6d78d7f91a">
+	<property name="ireport.zoom" value="1.7715610000000017"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="patientid" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\project\\DiagnosticManagementSystem\\src\\main\\webapp\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT doctor.fname,
+       doctor.deptname,
+       patient.fname as pname,
+       patient.age,
+       patient.gender,
+       patient.bloodgroup,
+       prescription.presdate,
+       prescription.nextconsultdate
+FROM (diagnostic.doctor doctor
+      INNER JOIN diagnostic.prescription prescription
+         ON (doctor.doctorid = prescription.doctorid))
+     INNER JOIN diagnostic.patient patient
+        ON (patient.pid = prescription.pid)
+where patient.pid=$P{patientid}]]>
+	</queryString>
+	<field name="fname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="deptname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pname" class="java.lang.String"/>
+	<field name="age" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="bloodgroup" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="presdate" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nextconsultdate" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="174" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="142" width="80" height="15" uuid="ce5de463-0d59-4c37-89a8-bf4055cd2983"/>
+				<text><![CDATA[Prescription Date:]]></text>
+			</staticText>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="162" y="142" width="89" height="16" uuid="bb32be90-5b7c-4331-8121-c2c5532970c2"/>
+				<textFieldExpression><![CDATA[$F{presdate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="348" y="143" width="96" height="15" uuid="7e76f447-206d-4184-98ff-153c298bf4c1"/>
+				<text><![CDATA[Next Consult Date:]]></text>
+			</staticText>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="436" y="143" width="100" height="15" uuid="3dc78666-9b7f-4ca9-83aa-5fa5e07f3c8b"/>
+				<textFieldExpression><![CDATA[$F{nextconsultdate}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="37" y="137" width="499" height="1" uuid="71ace830-0d3e-486b-b818-4fcb75fe1618"/>
+			</line>
+			<line>
+				<reportElement x="37" y="164" width="502" height="1" uuid="ef5fa123-0ec2-4134-8c04-ba5a29e46c07"/>
+			</line>
+			<staticText>
+				<reportElement x="160" y="0" width="252" height="40" uuid="e5025e18-17ae-4d12-ada9-bb43e1061df9"/>
+				<textElement textAlignment="Center">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[S.R. Diagnostic Center]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="219" y="82" width="37" height="20" uuid="23eae877-9ed8-496c-bc4f-f0b89b6d729f"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="256" y="82" width="71" height="20" uuid="dfa181bf-c36f-4ca6-86c0-6287104d154a"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deptname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="327" y="82" width="64" height="20" uuid="a1c553a2-c229-4950-b98f-b17b60921ecc"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Specialist]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="209" y="30" width="159" height="20" uuid="5415adf8-35f1-4a9f-8aaf-c6cb42f1d02f"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Dendabor, Savar, Dhaka]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="50" width="132" height="20" uuid="491ae1cf-5c31-4645-a13a-48e4c48f8af0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Mobile : 01738363303]]></text>
+			</staticText>
+			<line>
+				<reportElement x="232" y="70" width="106" height="1" uuid="cf0def56-f097-4792-a672-85c5d62ca79c"/>
+			</line>
+			<staticText>
+				<reportElement x="187" y="82" width="35" height="20" uuid="79f4a62c-fff7-4c03-8e46-caa4fac45bb7"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[DR.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="34" y="109" width="502" height="1" uuid="a7d1e734-4c19-4137-9698-efae25bba56e"/>
+			</line>
+			<line>
+				<reportElement x="34" y="112" width="502" height="1" uuid="3314e046-63eb-416a-bd6d-c75f23bce39e"/>
+			</line>
+			<staticText>
+				<reportElement x="440" y="118" width="28" height="13" uuid="5885db06-fdb1-4dcc-8059-1ca06358b037"/>
+				<text><![CDATA[Sex:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="332" y="118" width="67" height="15" uuid="ec704142-cfd9-4dda-8b70-77cff8ef849d"/>
+				<text><![CDATA[Blood Group:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="468" y="118" width="64" height="16" uuid="f9b9b89c-8d89-4b89-be5d-b598a3bd475f"/>
+				<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="397" y="118" width="21" height="16" uuid="609d7a7a-d994-4181-aaa8-35e387931dea"/>
+				<textFieldExpression><![CDATA[$F{bloodgroup}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="148" y="117" width="64" height="15" uuid="d2b0f85a-e4b2-4c0d-8511-d0f57517440c"/>
+				<textFieldExpression><![CDATA[$F{pname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="265" y="117" width="38" height="15" uuid="e5c20a8c-cc3a-47c8-ade6-5872e8a93362"/>
+				<textFieldExpression><![CDATA[$F{age}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="235" y="117" width="29" height="16" uuid="c3d47205-11a3-406c-94bc-a848d1a38d33"/>
+				<text><![CDATA[Age:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="75" y="117" width="73" height="16" uuid="e5965d76-1a23-4729-9178-c71c17a1d286"/>
+				<text><![CDATA[Patient Name:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="484" splitType="Stretch">
+			<staticText>
+				<reportElement x="53" y="9" width="23" height="16" uuid="93e5759d-e3e5-47e3-b065-6d5856d9bea8"/>
+				<text><![CDATA[RX.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="76" y="13" width="1" height="459" uuid="4916c65c-6a45-4029-99b6-6e7c0d6c950c"/>
+			</line>
+			<subreport>
+				<reportElement x="78" y="37" width="478" height="42" uuid="8d744c58-2987-4e0a-b82a-0ba29d612a7a"/>
+				<subreportParameter name="patientid">
+					<subreportParameterExpression><![CDATA[$P{patientid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "finalprescription_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="78" y="279" width="477" height="100" uuid="8612a358-6328-45d9-9de5-76e2b8d006e3"/>
+				<subreportParameter name="patientid">
+					<subreportParameterExpression><![CDATA[$P{patientid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "finalprescription_subreport2.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="90" y="13" width="89" height="16" uuid="5f943708-8cec-4ac3-bdec-024cad9584fa"/>
+				<text><![CDATA[Drug Prescription:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="87" y="259" width="92" height="20" uuid="4d5f436d-5dee-4f5b-8e98-49872ae853ec"/>
+				<text><![CDATA[Test Prescription :]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="26" splitType="Stretch">
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="441" y="3" width="100" height="17" uuid="17bbcc8e-b327-49a9-a559-3673f1f66a6e"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="291" y="0" width="100" height="20" uuid="42348dca-e4b4-4d6b-8d41-00289874ba82"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

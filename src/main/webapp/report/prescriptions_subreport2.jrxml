@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prescriptions_subreport2" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8db48ce6-83e9-4090-a651-8b6ada91cc07">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="patientid" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT testtype.typename,
+       test.testname,
+       testprescription.description,
+       patient.pid
+FROM ((diagnostic.patient patient
+       INNER JOIN diagnostic.testprescription testprescription
+          ON (patient.pid = testprescription.pid))
+      INNER JOIN diagnostic.testtype testtype
+         ON (testtype.typeid = testprescription.typeid))
+     INNER JOIN diagnostic.test test
+        ON (test.testid = testprescription.testid)
+where patient.pid=$P{patientid}]]>
+	</queryString>
+	<field name="typename" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="testname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pid" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="23">
+			<staticText>
+				<reportElement x="58" y="3" width="68" height="20" uuid="5d45879f-55dc-4881-b7bb-30a73994e8cb"/>
+				<text><![CDATA[Test Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="3" width="62" height="20" uuid="95c7d5a0-17d1-4014-93ef-f95ccffaee49"/>
+				<text><![CDATA[Test Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="303" y="2" width="57" height="20" uuid="de78107a-4486-4bb9-bf97-ae838dd28b98"/>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="53" y="2" width="81" height="20" uuid="7f6b657a-8a93-4ae4-a169-3adcf44a64d2"/>
+				<textFieldExpression><![CDATA[$F{typename}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="305" y="2" width="100" height="20" uuid="c50d178b-f363-4872-a6ff-0d39a7da1b15"/>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="2" width="76" height="20" uuid="ea2f36b7-5b75-4d70-93b1-b2efa80d7709"/>
+				<textFieldExpression><![CDATA[$F{testname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
